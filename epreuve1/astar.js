@@ -32,8 +32,8 @@ exports.search = function (graph, start, goal) {
 	frontier.push(start, 0);
 	let cameFrom = {};
 	let costSoFar = {};
-	cameFrom[start] = null;
-	costSoFar[start] = 0;
+	cameFrom[JSON.stringify(start)] = null;
+	costSoFar[JSON.stringify(start)] = 0;
 
 	while (!frontier.empty()) {
 		const current = frontier.pop();
@@ -42,14 +42,14 @@ exports.search = function (graph, start, goal) {
 
 		for (const next of graph.neighbors(current)) {
 			console.log('next', next, costSoFar);
-			const newCost = costSoFar[current] + graph.cost(current, next);
-			if (!costSoFar.hasOwnProperty(next) || newCost < costSoFar[next]) {
+			const newCost = costSoFar[JSON.stringify(current)] + graph.cost(current, next);
+			if (!costSoFar.hasOwnProperty(JSON.stringify(next) || newCost < costSoFar[JSON.stringify(next)]) {
 				console.log('olala');
-				costSoFar[next] = newCost;
+				costSoFar[JSON.stringify(next)] = newCost;
 				const priority = newCost + heurestic(goal, next);
 				console.log('priority : ' + priority);
 				frontier.push(next, priority);
-				cameFrom[next] = current;
+				cameFrom[JSON.stringify(next)] = current;
 			}
 			console.log('Taille de la pq : ' + frontier.size());
 		}
