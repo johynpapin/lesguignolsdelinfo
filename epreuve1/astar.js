@@ -1,4 +1,4 @@
-class Priorityqueue {
+class PriorityQueue {
 	constructor() {
 		this.data = [];
 	}
@@ -28,7 +28,7 @@ function heurestic(p0, p1) {
 }
 
 exports.search = function (graph, start, goal) {
-	let frontier = new Priorityqueue();
+	let frontier = new PriorityQueue();
 	frontier.push(start, 0);
 	let cameFrom = {};
 	let costSoFar = {};
@@ -50,7 +50,7 @@ exports.search = function (graph, start, goal) {
 				frontier.push(next, priority);
 				cameFrom[next] = current;
 			}
-			console.log('Taille du graphe : ' + graph.size());
+			console.log('Taille de la pq : ' + frontier.size());
 		}
 	}
 
