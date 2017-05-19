@@ -59,5 +59,5 @@ exports.search = function (graph, start, goal) {
 		current = cameFrom[JSON.stringify(current)]
 	}
 
-	return path;
+	return path.reverse();
 }
