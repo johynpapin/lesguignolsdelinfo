@@ -30,7 +30,7 @@ exports.search = function (graph, start, goal) {
 	let frontier = new Priorityqueue();
 	frontier.push(start, 0);
 	let cameFrom = {};
-	let comeSoFor = {};
+	let costSoFar = {};
 	cameFrom[start] = null;
 	costSoFar[start] = 0;
 
@@ -40,8 +40,8 @@ exports.search = function (graph, start, goal) {
 		if (current === goal) break;
 
 		for (const next of graph.neighbors(current)) {
-			const new_cost = costSoFar[current] + graph.cost(current, next);
-			if (cost_so_far.indexOf(next) === -1 || new_cost < costSoFar[next]) {
+			const newCost = costSoFar[current] + graph.cost(current, next);
+			if (costSoFar[next] === undefined || newCost < costSoFar[next]) {
 				costSoFar[next] = newCost;
 				const priority = newCost + heurestic(goal, next);
 				frontier.put(next, priority);
@@ -50,5 +50,5 @@ exports.search = function (graph, start, goal) {
 		}
 	}
 
-	return {cameFrom: cameFrom, costSoFar: costSoFar);
+	return {cameFrom: cameFrom, costSoFar: costSoFar};
 }

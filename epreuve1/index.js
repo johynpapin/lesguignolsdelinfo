@@ -1,3 +1,5 @@
+const astar = require('./astar');
+const Graph = require('./graph');
 const net = require('net');
 
 const client = net.connect({host: '127.0.0.1', port: 1337}, () => {
@@ -30,6 +32,7 @@ client.on('data', data => {
 			xy = xy.split(',');
 			return {x: xy[0], y: xy[1]};
 		});
+		astar.search(new Graph(b), players[0], {x: 15, y: 15});
 	}
 });
 
@@ -74,4 +77,3 @@ let player = {
 		return false;
 	}
 };
-
