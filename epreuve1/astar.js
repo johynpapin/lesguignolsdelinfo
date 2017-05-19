@@ -38,7 +38,6 @@ exports.search = function (graph, start, goal) {
 	while (!frontier.empty()) {
 		const current = frontier.pop();
 
-		console.log("et du coup ", JSON.stringify(current), JSON.stringify(goal));
 		if (JSON.stringify(current) === JSON.stringify(goal)) break;
 
 		for (const next of graph.neighbors(current)) {
@@ -52,7 +51,13 @@ exports.search = function (graph, start, goal) {
 		}
 	}
 
-	console.log('Woaw c’est terminé');
+	let path = [];
+	let current = goal;
 
-	return {cameFrom: cameFrom, costSoFar: costSoFar};
+	while (JSON.stringify(current) !== JSON.stringify(start)) {
+		path.push(current);
+		current = cameFrom[JSON.stringify(current)]
+	}
+
+	return path;
 }
