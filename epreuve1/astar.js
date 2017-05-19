@@ -39,7 +39,7 @@ exports.search = function (graph, start, goal) {
 		const current = frontier.pop();
 
 		console.log("et du coup ", JSON.stringify(current), JSON.stringify(goal));
-		if (current === goal) break;
+		if (JSON.stringify(current) === JSON.stringify(goal)) break;
 
 		for (const next of graph.neighbors(current)) {
 			const newCost = costSoFar[JSON.stringify(current)] + graph.cost(current, next);
