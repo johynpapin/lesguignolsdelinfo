@@ -30,7 +30,7 @@ exports.search = function (graph, start, goal) {
 	let frontier = new Priorityqueue();
 	frontier.push(start, 0);
 	let cameFrom = {};
-	let comeSoFor = {};
+	let costSoFar = {};
 	cameFrom[start] = null;
 	costSoFar[start] = 0;
 
