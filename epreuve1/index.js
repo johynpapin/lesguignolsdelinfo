@@ -7,13 +7,14 @@ const client = net.connect({host: '127.0.0.1', port: 1337}, () => {
 	client.write('LesGuignolsDeLInfo\n');
 });
 
-let b = [];
+let b = {};
+let number;
 let players = [];
 client.on('data', data => {
 	data = data.toString().slice(0, -1);
 	if (data.length === 1) {
-		b.number = Number(data);
-		console.log('We are the player no ' + b.number);
+		number = Number(data);
+		console.log('We are the player no ' + number);
 	} else if (data === 'FIN') {
 		console.log('End of the round');
 	} else {
@@ -23,17 +24,19 @@ client.on('data', data => {
 		const y = Number(data[0].split('x')[1]);
 		data[1] = data[1].split('-');
 		for (let i = 0; i < y; i++) {
-			b[i] = data[1].slice(i * x, (i + 1) * x);
-			b[i] = b[i].map(val => {
-				return (Number(val) == val) ? Number(val) : val;
-			});
+			let line = data[1].slice(i * x, (i + 1) * x);
+			for (let j = 0; j < x; j++) {
+				b[JSON.stringify({x: j, y: i})] = (Number(line[j]) == line[j]) ? Number(line[j]) : line[j];
+				console.log(b);
+			}
 		}
+		console.log(b);
 		players = data[2].substr(2).split('-').map(xy => {
 			xy = xy.split(',');
 			return {x: Number(xy[0]), y: Number(xy[1])};
 		});
 		console.log(players[0]);
-		console.log(astar.search(new Graph(b), players[0], {x: 15, y: 15}).cameFrom);
+		console.log(astar.search(new Graph(b, {x: x, y: y}), players[0], {x: 15, y: 15}).cameFrom);
 	}
 });
 
