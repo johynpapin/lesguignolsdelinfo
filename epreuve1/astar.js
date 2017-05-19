@@ -40,9 +40,10 @@ exports.search = function (graph, start, goal) {
 		if (current === goal) break;
 
 		for (const next of graph.neighbors(current)) {
-			console.log('next' + next);
+			console.log('next', next);
 			const newCost = costSoFar[current] + graph.cost(current, next);
 			if (costSoFar[next] === undefined || newCost < costSoFar[next]) {
+				console.log('olala');
 				costSoFar[next] = newCost;
 				const priority = newCost + heurestic(goal, next);
 				frontier.put(next, priority);
