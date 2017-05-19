@@ -33,7 +33,9 @@ client.on('data', data => {
 			xy = xy.split(',');
 			return {x: Number(xy[0]), y: Number(xy[1])};
 		});
+		console.time('astar');
 		let path = astar.search(new Graph(b, {x: x, y: y}), players[number], {x: 15, y: 15});
+		console.timeEnd();
 		client.write(dir(players[number], path[0]) + '\n');
 	}
 });
@@ -91,4 +93,3 @@ function dir(from, to) {
 		return 'N';
 	return 'C';
 }
-
