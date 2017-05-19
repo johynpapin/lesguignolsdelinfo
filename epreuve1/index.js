@@ -35,7 +35,7 @@ client.on('data', data => {
 		});
 		console.time('astar');
 		let path = astar.search(new Graph(b, {x: x, y: y}), players[number], {x: 15, y: 15});
-		console.timeEnd();
+		console.timeEnd('astar');
 		client.write(dir(players[number], path[0]) + '\n');
 	}
 });
