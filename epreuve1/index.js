@@ -32,6 +32,7 @@ client.on('data', data => {
 			xy = xy.split(',');
 			return {x: xy[0], y: xy[1]};
 		});
+		console.log(player[0]);
 		console.log(astar.search(new Graph(b), players[0], {x: 15, y: 15}).cameFrom);
 	}
 });
