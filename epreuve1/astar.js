@@ -38,6 +38,7 @@ exports.search = function (graph, start, goal) {
 	while (!frontier.empty()) {
 		const current = frontier.pop();
 
+		console.log("et du coup ", JSON.stringify(current), JSON.stringify(goal));
 		if (current === goal) break;
 
 		for (const next of graph.neighbors(current)) {
@@ -54,6 +55,8 @@ exports.search = function (graph, start, goal) {
 			console.log('Taille de la pq : ' + frontier.size());
 		}
 	}
+
+	console.log('Woaw c’est terminé');
 
 	return {cameFrom: cameFrom, costSoFar: costSoFar};
 }
