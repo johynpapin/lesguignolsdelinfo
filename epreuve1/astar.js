@@ -43,7 +43,7 @@ exports.search = function (graph, start, goal) {
 		for (const next of graph.neighbors(current)) {
 			console.log('next', next, costSoFar);
 			const newCost = costSoFar[current] + graph.cost(current, next);
-			if (!(next in costSoFar) || newCost < costSoFar[next]) {
+			if (!costSoFar.hasOwnProperty(next) || newCost < costSoFar[next]) {
 				console.log('olala');
 				costSoFar[next] = newCost;
 				const priority = newCost + heurestic(goal, next);
