@@ -1,8 +1,12 @@
 <template name="homePage">
-	{{> registerForm}}
-
-	<a class="waves-effect waves-light btn-large">Facebook</a>
-	<a class="waves-effect waves-light btn-large">Twitter</a>
-	<a class="waves-effect waves-light btn-large">Google</a>
-	<a class="waves-effect waves-light btn-large">Github</a>
+	<div class="row">
+		<div class="col s6"></div>
+		<div id="register-pane" class="col s5">
+			{{> registerForm}}
+			<a class="waves-effect waves-light btn-large">Facebook</a>
+			<a class="waves-effect waves-light btn-large">Twitter</a>
+			<a class="waves-effect waves-light btn-large">Google</a>
+			<a class="waves-effect waves-light btn-large">Github</a>
+		</div>
+	</div>
 </template>
