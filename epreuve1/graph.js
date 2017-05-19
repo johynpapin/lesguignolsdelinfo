@@ -13,6 +13,7 @@ module.exports = exports = class Graph {
 			neighbors.push({x: node.x, y: node.y - 1});
 		if (node.y < this.nodes.length - 1 && this.nodes[node.x][node.y + 1] !== 'D')
 			neighbors.push({x: node.x, y: node.y + 1});
+		return neighbors;
 	}
 
 	cost() {
