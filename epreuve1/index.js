@@ -27,10 +27,8 @@ client.on('data', data => {
 			let line = data[1].slice(i * x, (i + 1) * x);
 			for (let j = 0; j < x; j++) {
 				b[JSON.stringify({x: j, y: i})] = (Number(line[j]) == line[j]) ? Number(line[j]) : line[j];
-				console.log(b);
 			}
 		}
-		console.log(b);
 		players = data[2].substr(2).split('-').map(xy => {
 			xy = xy.split(',');
 			return {x: Number(xy[0]), y: Number(xy[1])};
