@@ -41,7 +41,7 @@ exports.search = function (graph, start, goal) {
 
 		for (const next of graph.neighbors(current)) {
 			const new_cost = costSoFar[current] + graph.cost(current, next);
-			if (cost_so_far.indexOf(next) === -1 || new_cost < costSoFar[next]) {
+			if (costSoFar.indexOf(next) === -1 || new_cost < costSoFar[next]) {
 				costSoFar[next] = newCost;
 				const priority = newCost + heurestic(goal, next);
 				frontier.put(next, priority);
