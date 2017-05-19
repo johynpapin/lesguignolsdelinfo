@@ -4,12 +4,12 @@ import '../../ui/pages/timeline-page';
 
 FlowRouter.route('/', {
   action: function() {
-    BlazeLayout.render('main-layout', {content: 'home-page'});
+    BlazeLayout.render('mainLayout', {content: 'homePage'});
   }
 });
 
 FlowRouter.route('/timeline', {
   action: function() {
-    BlazeLayout.render('main-layout', {content: 'timeline-page'});
+    BlazeLayout.render('mainLayout', {content: 'timelinePage'});
   }
 });

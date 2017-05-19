@@ -1,5 +1,5 @@
 import { Mongo } from 'meteor/mongo';
-import { SimpleSchema } from 'simpl-schema';
+import SimpleSchema from 'simpl-schema';
 
 export const Beers = new Mongo.Collection('beers');
 
@@ -47,4 +47,3 @@ Beers.publicFields = {
 	aroma: 1,
 	history: 1
 };
-
