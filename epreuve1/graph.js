@@ -6,13 +6,13 @@ module.exports = exports = class Graph {
 	neighbors(node) {
 		let neighbors = [];
 		if (node.x > 1 && this.nodes[node.x - 1][node.y] !== 'D')
-			neighbors.push([node.x - 1, node.y]);
+			neighbors.push({x: node.x - 1, y: node.y});
 		if (node.x < this.nodes[0].length - 1 && this.nodes[node.x + 1][node.y] !== 'D')
-			neighbors.push([node.x + 1, node.y]);
+			neighbors.push({x: node.x + 1, y: node.y});
 		if (node.y > 1 && this.nodes[node.x][node.y - 1] !== 'D')
-			neighbors.push([node.x][node.y - 1]);
+			neighbors.push({x: node.x, y: node.y - 1});
 		if (node.y < this.nodes.length - 1 && this.nodes[node.x][node.y + 1] !== 'D')
-			neighbors.push(this.nodes[node.x][node.y + 1]);
+			neighbors.push({x: node.x, y: node.y + 1});
 	}
 
 	cost() {
