@@ -9,4 +9,3 @@ Calais. Elle est composée de :
 * Antoine ???
 * Quentin RIBAC
 
-42
