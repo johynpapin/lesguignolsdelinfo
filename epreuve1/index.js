@@ -25,28 +25,53 @@ client.on('data', data => {
 		const y = Number(data[0].split('x')[1]);
 		data[1] = data[1].split('-');
 		let mussels = [];
+		let beers = [];
 		for (let i = 0; i < y; i++) {
 			let line = data[1].slice(i * x, (i + 1) * x);
 			for (let j = 0; j < x; j++) {
 				if (Number(line[j]) == line[j]) {
 					line[j] = Number(line[j]);
 					mussels.push({x: j, y: i, val: line[j]});
+				} else if (line[j] === 'B') {
+					beers.push(line[j]);
 				}
 				b[JSON.stringify({x: j, y: i})] = line[j];
 			}
 		}
 		mussels.sort((a, b) => { return b.val - a.val; });
-		console.log(mussels);
 		players = data[2].substr(2).split('-').map(xy => {
 			xy = xy.split(',');
 			return {x: Number(xy[0]), y: Number(xy[1])};
 		});
 		console.timeEnd('generation');
 		console.time('astar');
-		let target = {x: 15, y: 15};
-		if (players[number].x !== target.x || players[number].y !== target.y) {
-			let path = astar.search(new Graph(b, {x: x, y: y}), players[number], target);
-			client.write(dir(players[number], path[0]) + '\n');
+		//paths for every player to every mussel
+		for (const player of players) {
+			player.paths = {};
+			player.bestChoice = {};
+			for (const mussel of mussels) {
+				player.paths[JSON.stringify(mussel)] = astar.search(new Graph(b, {x: x, y: y}), player, {x: mussel.x, y: mussel.y});
+			}
+		}
+		let musselsBestPlayer = {};
+		for (const mussel of mussels) {
+			musselsBestPlayer[JSON.stringify(mussel)] = players[number];
+			for (const player of players) {
+				if (player.paths[JSON.stringify(mussel)].length < musselsBestPlayer[JSON.stringify(mussel)].paths[JSON.stringify(mussel)].length) {
+					musselsBestPlayer[JSON.stringify(mussel)] = player;
+				}
+			}
+		}
+		let ourMussels = [];
+		for (const mussel in musselsBestPlayer) {
+			if (musselsBestPlayer[mussel] === players[number]) {
+				ourMussels.push(mussel);
+			}
+		}
+		if (ourMussels.length !== 0) {
+			console.log(ourMussels[0]);
+			console.log(players[number].paths[JSON.stringify(ourMussels[0])]);
+			client.write(dir(players[number], players[number].paths[ourMussels[0]][0]) + '\n');
 		}
 		console.timeEnd('astar');
 	}
@@ -106,3 +131,4 @@ function dir(from, to) {
 		return 'N';
 	return 'C';
 }
+
