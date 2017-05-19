@@ -74,4 +74,3 @@ let player = {
 		return false;
 	}
 };
-
