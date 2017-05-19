@@ -50,5 +50,5 @@ exports.search = function (graph, start, goal) {
 		}
 	}
 
-	return {cameFrom: cameFrom, costSoFar: costSoFar);
+	return {cameFrom: cameFrom, costSoFar: costSoFar};
 }
