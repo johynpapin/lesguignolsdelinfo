@@ -5,7 +5,7 @@ Calais. Elle est composée de :
 * Johyn PAPIN
 * Kévin RIOU
 * Maxime ???
-* Simon ???
+* Simon LE BARS
 * Antoine ???
 * Quentin RIBAC
 
