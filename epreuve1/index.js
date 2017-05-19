@@ -47,6 +47,7 @@ client.on('data', data => {
 		});
 		console.timeEnd('generation');
 		console.time('astar');
+		console.log(players[number].x, players[number].y, b[{x: players[number].x, y: players[number].y}]);
 		//paths from us to every beer
 		let beersPaths = {};
 		for (const beer of beers) {
@@ -91,38 +92,74 @@ client.on('data', data => {
 		}
 		if (ourMussels.length !== 0) {
 			let dirCur = dir(players[number], players[number].paths[ourMussels[0]][0]);
+			let notUsed = false;
 			switch (dirCur) {
 			case 'N':
 				toBeer = b[{x: players[number].x, y: players[number].y - 1}] === 'B';
+				notUsed = toBeer;
 				break;
 			//42
 			case 'S':
 				toBeer = b[{x: players[number].x, y: players[number].y + 1}] === 'B';
+				notUsed = toBeer;
 				break;
 			case 'O':
 				toBeer = b[{x: players[number].x - 1, y: players[number].y}] === 'B';
+				notUsed = toBeer;
 				break;
 			case 'E':
 				toBeer = b[{x: players[number].x + 1, y: players[number].y}] === 'B';
+				notUsed = toBeer;
 				break;
 			}
-			if (toBeer && players[number].paths[ourMussels[0]].length >= 3) {
+			if (toBeer && !notUsed && players[number].paths[ourMussels[0]].length >= 3) {
 				dirCur = 'B-';
 				dirCur += dir(players[number], players[number].paths[ourMussels[0]][0]) + '-';
 				dirCur += dir(players[number].paths[ourMussels[0]][0], players[number].paths[ourMussels[0]][1]) + '-';
 				dirCur += dir(players[number].paths[ourMussels[0]][1], players[number].paths[ourMussels[0]][2]);
+				console.log(dirCur);
 				toBeer = false;
 				client.write(dirCur + '\n');
 			} else {
 				client.write(dirCur + '\n');
 			}
 		} else {
-			//todo: gestion des risques
 			let nb = 0;
-			if (Math.abs(mussels[0].val - mussels[1].val) <= 20) {
+			if (mussels.length >= 2 && Math.abs(mussels[0].val - mussels[1].val) <= 20) {
 				nb = 1;
 			}
-			client.write(dir(players[number], players[number].paths[JSON.stringify(mussels[0])][0]) + '\n');
+			let dirCur = dir(players[number], players[number].paths[JSON.stringify(mussels[nb])][0]);
+			let notUsed = false;
+			switch (dirCur) {
+			case 'N':
+				toBeer = b[{x: players[number].x, y: players[number].y - 1}] === 'B';
+				notUsed = toBeer;
+				break;
+			//42
+			case 'S':
+				toBeer = b[{x: players[number].x, y: players[number].y + 1}] === 'B';
+				notUsed = toBeer;
+				break;
+			case 'O':
+				toBeer = b[{x: players[number].x - 1, y: players[number].y}] === 'B';
+				notUsed = toBeer;
+				break;
+			case 'E':
+				toBeer = b[{x: players[number].x + 1, y: players[number].y}] === 'B';
+				notUsed = toBeer;
+				break;
+			}
+			if (toBeer && !notUsed && players[number].paths[JSON.stringify(mussels[nb])].length >= 3) {
+				dirCur = 'B-';
+				dirCur += dir(players[number], players[number].paths[JSON.stringify(mussels[nb])][0]) + '-';
+				dirCur += dir(players[number].paths[JSON.stringify(mussels[nb])][0], players[number].paths[JSON.stringify(mussels[nb])][1]) + '-';
+				dirCur += dir(players[number].paths[JSON.stringify(mussels[nb])][1], players[number].paths[JSON.stringify(mussels[nb])][2]);
+				console.log(dirCur);
+				toBeer = false;
+				client.write(dirCur + '\n');
+			} else {
+				client.write(dirCur + '\n');
+			}
 		}
 		console.timeEnd('astar');
 	}
