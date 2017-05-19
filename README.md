@@ -11,6 +11,6 @@ Calais. Elle est composée de :
 * Maxime ???
 * Simon LE BARS
 >>>>>>> 2ab3752877aae2c56ac7ccd51d7dbf16c36faa7b
-* Antoine ???
+* Antoine Sangan
 * Quentin RIBAC
 
