@@ -4,8 +4,9 @@ class Priorityqueue {
 	}
 
 	push(element, priority) {
-  	priority = +priority
-  	for (let i = 0; i < this.data.length && this.data[i][1] > priority; i++);
+  	priority = +priority;
+		let i;
+  	for (i = 0; i < this.data.length && this.data[i][1] > priority; i++);
   	this.data.splice(i, 0, [element, priority])
 	}
 
@@ -49,6 +50,7 @@ exports.search = function (graph, start, goal) {
 				frontier.push(next, priority);
 				cameFrom[next] = current;
 			}
+			console.log('Taille du graphe : ' + graph.size());
 		}
 	}
 
