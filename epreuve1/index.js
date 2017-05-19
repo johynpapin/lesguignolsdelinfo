@@ -11,6 +11,7 @@ let b = {};
 let number;
 let players = [];
 client.on('data', data => {
+	console.time('data');
 	data = data.toString().slice(0, -1);
 	if (data.length === 1) {
 		number = Number(data);
@@ -18,21 +19,29 @@ client.on('data', data => {
 	} else if (data === 'FIN') {
 		console.log('End of the round');
 	} else {
-		console.log('test')
+		console.time('generation');
 		data = data.split('/');
 		const x = Number(data[0].split('x')[0]);
 		const y = Number(data[0].split('x')[1]);
 		data[1] = data[1].split('-');
+		let mussels = [];
 		for (let i = 0; i < y; i++) {
 			let line = data[1].slice(i * x, (i + 1) * x);
 			for (let j = 0; j < x; j++) {
-				b[JSON.stringify({x: j, y: i})] = (Number(line[j]) == line[j]) ? Number(line[j]) : line[j];
+				if (Number(line[j]) == line[j]) {
+					line[j] = Number(line[j]);
+					mussels.push({x: j, y: i, val: line[j]});
+				}
+				b[JSON.stringify({x: j, y: i})] = line[j];
 			}
 		}
+		mussels.sort((a, b) => { return b.val - a.val; });
+		console.log(mussels);
 		players = data[2].substr(2).split('-').map(xy => {
 			xy = xy.split(',');
 			return {x: Number(xy[0]), y: Number(xy[1])};
 		});
+		console.timeEnd('generation');
 		console.time('astar');
 		let target = {x: 15, y: 15};
 		if (players[number].x !== target.x || players[number].y !== target.y) {
@@ -41,6 +50,7 @@ client.on('data', data => {
 		}
 		console.timeEnd('astar');
 	}
+	console.timeEnd('data');
 });
 
 client.on('end', () => {
