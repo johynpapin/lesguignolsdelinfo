@@ -34,7 +34,7 @@ client.on('data', data => {
 			return {x: Number(xy[0]), y: Number(xy[1])};
 		});
 		console.log(players[0]);
-		console.log(astar.search(new Graph(b, {x: x, y: y}), players[0], {x: 15, y: 15}).cameFrom);
+		console.log(astar.search(new Graph(b, {x: x, y: y}), players[0], {x: 15, y: 15}));
 	}
 });
 
