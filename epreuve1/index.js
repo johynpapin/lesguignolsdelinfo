@@ -33,8 +33,8 @@ client.on('data', data => {
 			xy = xy.split(',');
 			return {x: Number(xy[0]), y: Number(xy[1])};
 		});
-		console.log(players[0]);
-		console.log(astar.search(new Graph(b, {x: x, y: y}), players[0], {x: 15, y: 15}));
+		let path = astar.search(new Graph(b, {x: x, y: y}), players[number], {x: 15, y: 15});
+		client.write(dir(players[number], path[0]) + '\n');
 	}
 });
 
@@ -79,3 +79,16 @@ let player = {
 		return false;
 	}
 };
+
+function dir(from, to) {
+	if (from.x < to.x)
+		return 'E';
+	if (from.x > to.x)
+		return 'O';
+	if (from.y < to.y)
+		return 'S';
+	if (from.y > to.y)
+		return 'N';
+	return 'C';
+}
+
