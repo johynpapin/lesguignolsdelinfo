@@ -47,6 +47,7 @@ exports.search = function (graph, start, goal) {
 				console.log('olala');
 				costSoFar[next] = newCost;
 				const priority = newCost + heurestic(goal, next);
+				console.log('priority : ' + priority);
 				frontier.push(next, priority);
 				cameFrom[next] = current;
 			}
