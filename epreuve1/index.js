@@ -118,6 +118,10 @@ client.on('data', data => {
 			}
 		} else {
 			//todo: gestion des risques
+			let nb = 0;
+			if (Math.abs(mussels[0].val - mussels[1].val) <= 20) {
+				nb = 1;
+			}
 			client.write(dir(players[number], players[number].paths[JSON.stringify(mussels[0])][0]) + '\n');
 		}
 		console.timeEnd('astar');
