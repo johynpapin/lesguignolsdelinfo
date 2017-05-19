@@ -34,9 +34,12 @@ client.on('data', data => {
 			return {x: Number(xy[0]), y: Number(xy[1])};
 		});
 		console.time('astar');
-		let path = astar.search(new Graph(b, {x: x, y: y}), players[number], {x: 15, y: 15});
+		let target = {x: 15, y: 15};
+		if (players[number].x !== target.x || players[number].y !== target.y) {
+			let path = astar.search(new Graph(b, {x: x, y: y}), players[number], target);
+			client.write(dir(players[number], path[0]) + '\n');
+		}
 		console.timeEnd('astar');
-		client.write(dir(players[number], path[0]) + '\n');
 	}
 });
 
