@@ -17,6 +17,6 @@ module.exports = exports = class Graph {
 	}
 
 	cost() {
-		return 0;
+		return 1;
 	}
 };

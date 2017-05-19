@@ -5,7 +5,7 @@ class Priorityqueue {
 
 	push(element, priority) {
   	priority = +priority
-  	for (var i = 0; i < this.data.length && this.data[i][1] > priority; i++);
+  	for (let i = 0; i < this.data.length && this.data[i][1] > priority; i++);
   	this.data.splice(i, 0, [element, priority])
 	}
 
