@@ -22,17 +22,17 @@ client.on('data', data => {
 		const x = Number(data[0].split('x')[0]);
 		const y = Number(data[0].split('x')[1]);
 		data[1] = data[1].split('-');
-		for (let i = 0; i < x; i++) {
-			b[i] = data[1].slice(i * y, (i + 1) * y);
+		for (let i = 0; i < y; i++) {
+			b[i] = data[1].slice(i * x, (i + 1) * x);
 			b[i] = b[i].map(val => {
 				return (Number(val) == val) ? Number(val) : val;
 			});
 		}
 		players = data[2].substr(2).split('-').map(xy => {
 			xy = xy.split(',');
-			return {x: xy[0], y: xy[1]};
+			return {x: Number(xy[0]), y: Number(xy[1])};
 		});
-		console.log(player[0]);
+		console.log(players[0]);
 		console.log(astar.search(new Graph(b), players[0], {x: 15, y: 15}).cameFrom);
 	}
 });
