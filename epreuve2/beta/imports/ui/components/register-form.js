@@ -73,5 +73,8 @@ Template.registerForm.events({
 		} else {
 			sAlert.warning('Le formulaire d’inscription est invalide.');
 		}
+	},
+	'click #r-login'(e) {
+		Session.set('loginForm', true);
 	}
 });

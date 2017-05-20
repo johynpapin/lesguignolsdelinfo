@@ -22,21 +22,29 @@ Template.loginForm.helpers({
 Template.loginForm.events({
 	'input input'(e) {
 		const usernameEmail = $('#l-username-email');
-		const password = $('#r-password');
+		const password = $('#l-password');
 
 		Session.set('loginEnabled', usernameEmail.val() !== '' && password.val() !== '');
 	},
-	'click #r-next'(e) {
-		Session.set('partTwo', true);
-	},
 	'submit #login-form'(e) {
+		e.preventDefault();
+
 		const usernameEmail = $('#l-username-email');
 		const password = $('#r-password');
 
-		if (firstName.val() !== '' && lastName.val() !== '') {
-			//here do effective connection
+		if (usernameEmail.val() !== '' && password.val() !== '') {
+			Meteor.loginWithPassword(usernameEmail, password, error => {
+				if (error) {
+					sAlert.error(error);
+				} else {
+					sAlert.success('Bonjour, ' + Meteor.user().profile.firstName + ' ' + Meteor.user().profile.lastName + '.');
+				}
+			})
 		} else {
 			sAlert.warning('Le formulaire d’inscription est invalide.');
 		}
+	},
+	'click #r-register'(e) {
+		Session.set('loginForm', false);
 	}
 });

@@ -6,7 +6,11 @@
 			<h1>Brune Houblonde</h1>
 		</div>
 		<div id="register-pane" class="col s12 m5 offset-m1 z-depth-4">
-			{{> registerForm}}
+			{{#if loginFormIsCurrent}}
+				{{> loginForm}}
+			{{else}}
+				{{> registerForm}}
+			{{/if}}
 			{{> socialButtons}}
 		</div>
 	</div>
