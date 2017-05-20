@@ -1,10 +1,9 @@
 <template name="mainLayout">
 	<div id="particles-js"></div>
-	<header>
-		<h1>Beer</h1>
-	</header>
+	
 	<main>
 		{{> Template.dynamic template=content}}
 	</main>
-	<footer>We love Meteor</footer>
+
+	{{> sAlert}}
 </template>
