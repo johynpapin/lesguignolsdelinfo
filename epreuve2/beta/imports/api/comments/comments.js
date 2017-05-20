@@ -19,7 +19,8 @@ Comments.schema = new SimpleSchema({
 		label: "Cible"
 	},
 	user: {
-		type: Users,
+		type: String,
+		regEx: SimpleSchema.RegEx.Id,
 		label: "Auteur"
 	}
 });
@@ -32,4 +33,3 @@ Comments.publicFields = {
 	on: 1,
 	user: 1
 };
-
