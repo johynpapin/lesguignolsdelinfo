@@ -14,6 +14,6 @@ Template.beer.events({
 
 Template.beer.helpers({
 	liked() {
-		//return Meteor.user().profile.beers.indexOf(this._id) !== -1;
+		return Meteor.user().profile.beers.indexOf(this._id) !== -1;
 	}
 });

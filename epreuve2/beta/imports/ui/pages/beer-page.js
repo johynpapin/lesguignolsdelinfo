@@ -7,7 +7,7 @@ import { Comments } from '/imports/api/comments/comments';
 import '../components/beer';
 import './beer-page.html';
 
-Template.beersPage.helpers({
+Template.beerPage.helpers({
 	beer() {
 		return Beers.findOne(FlowRouter.getParam('beerId'));
 	},
