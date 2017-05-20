@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { Session } from 'meteor/session';
 import { sAlert } from 'meteor/juliancwirko:s-alert';
@@ -39,12 +40,12 @@ Template.loginForm.events({
 				} else {
 					sAlert.success('Bonjour, ' + Meteor.user().profile.firstName + ' ' + Meteor.user().profile.lastName + '.');
 				}
-			})
+			});
 		} else {
 			sAlert.warning('Le formulaire d’inscription est invalide.');
 		}
 	},
-	'click #r-register'(e) {
+	'click #l-register'(e) {
 		Session.set('loginForm', false);
 	}
 });
