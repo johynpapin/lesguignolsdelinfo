@@ -5,11 +5,6 @@ import { sAlert } from 'meteor/juliancwirko:s-alert';
 
 import './login-form.html';
 
-function validateEmail(email) {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-}
-
 Template.loginForm.onRendered(() => {
 	Session.set('loginEnabled', false);
 });
@@ -31,7 +26,7 @@ Template.loginForm.events({
 		e.preventDefault();
 
 		const usernameEmail = $('#l-username-email');
-		const password = $('#r-password');
+		const password = $('#l-password');
 
 		if (usernameEmail.val() !== '' && password.val() !== '') {
 			Meteor.loginWithPassword(usernameEmail.val(), password.val(), error => {
