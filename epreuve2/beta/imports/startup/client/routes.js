@@ -26,3 +26,9 @@ FlowRouter.route('/beers', {
     BlazeLayout.render('socialLayout', {content: 'beersPage'});
   }
 });
+
+FlowRouter.route('/mybeers', {
+  action: function() {
+    BlazeLayout.render('socialLayout', {content: 'mybeersPage'});
+  }
+});

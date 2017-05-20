@@ -12,5 +12,12 @@ Meteor.methods({
 				'profile.beers': beerId
 			}
 		});
+	},
+	unlikeBeer(beerId) {
+		Meteor.users.update(Meteor.userId(), {
+			$pull: {
+				'profile.beers': beerId
+			}
+		});
 	}
 });
