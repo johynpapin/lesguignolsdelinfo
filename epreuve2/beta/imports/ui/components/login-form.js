@@ -33,7 +33,7 @@ Template.loginForm.events({
 		const password = $('#r-password');
 
 		if (usernameEmail.val() !== '' && password.val() !== '') {
-			Meteor.loginWithPassword(usernameEmail, password, error => {
+			Meteor.loginWithPassword(usernameEmail.val(), password.val(), error => {
 				if (error) {
 					sAlert.error(error);
 				} else {
