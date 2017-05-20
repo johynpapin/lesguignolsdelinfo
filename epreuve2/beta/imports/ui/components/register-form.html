@@ -1,7 +1,13 @@
 <template name="registerForm">
 	<h3>Inscription</h3>
 	<div class="row">
-		<form class="col s12">
+		<form id="register-form" class="col s12">
+			<div class="row">
+				<div class="input-field col s12">
+					<input id="r-username" type="text" class="validate">
+					<label for="r-username">Nom d’utilisateur</label>
+				</div>
+			</div>
 			<div class="row">
 				<div class="input-field col s6">
 					<input id="r-first-name" type="text" class="validate">
@@ -41,11 +47,11 @@
 				</div>
 
 				{{#if registerEnabled}}
-					<button class="btn waves-effect waves-light btn-large" type="submit" name="action">S’inscrire
+					<button class="btn waves-effect waves-light btn-large" type="submit">S’inscrire
 				    <i class="material-icons right">send</i>
 				  </button>
 				{{else}}
-					<button class="btn waves-effect waves-light btn-large disabled" disabled type="submit" name="action">S’inscrire
+					<button class="btn waves-effect waves-light btn-large disabled" disabled type="submit">S’inscrire
 						<i class="material-icons right">send</i>
 					</button>
 				{{/if}}

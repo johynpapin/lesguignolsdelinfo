@@ -1,5 +1,6 @@
 import { Template } from 'meteor/templating';
 import { Session } from 'meteor/session';
+import { sAlert } from 'meteor/juliancwirko:s-alert';
 
 import './register-form.html';
 
@@ -28,29 +29,47 @@ Template.registerForm.helpers({
 
 Template.registerForm.events({
 	'input input'(e) {
-		console.log(Session.get('nextEnabled'));
+		const username = $('#r-username');
 		const firstName = $('#r-first-name');
 		const lastName = $('#r-last-name');
 		const email = $('#r-email');
 
-		Session.set('nextEnabled', firstName.val().length !== 0 && lastName.val().length !== 0 && validateEmail(email.val()));
+		Session.set('nextEnabled', username.val() !== '' && firstName.val() !== '' && lastName.val() != '' && validateEmail(email.val()));
 
 		const password = $('#r-password');
 		const password2 = $('#r-password-2');
 
-		Session.set('registerEnabled', Session.get('nextEnabled') && password.val().length !== 0 && password.val() === password2.val());
+		Session.set('registerEnabled', Session.get('nextEnabled') && password.val() != '' && password.val() === password2.val());
 	},
 	'click #r-next'(e) {
 		Session.set('partTwo', true);
 	},
 	'submit #register-form'(e) {
+		e.preventDefault();
+
+		const username = $('#r-username');
 		const firstName = $('#r-first-name');
 		const lastName = $('#r-last-name');
 		const email = $('#r-email');
 		const password = $('#r-password');
 		const password2 = $('#r-password-2');
 
-		if (firstName.val().length !== 0 && lastName.val().length !== 0 && validateEmail(email.val()) && password.val().length !== 0 && password.val() === password2.val()) {
+		if (username.val() !== '' && firstName.val() !== '' && lastName.val() !== '' && validateEmail(email.val()) && password.val() !== '' && password.val() === password2.val()) {
+			Accounts.createUser({
+				username: username.val(),
+				email: email.val(),
+				password: password.val(),
+				profile: {
+					firstName: firstName.val(),
+					lastName: lastName.val()
+				}
+			}, error => {
+				if (error) {
+					sAlert.error(error);
+				} else {
+					sAlert.success('Bienvenue, ' + Meteor.user().profile.firstName + ' ' + Meteor.user().profile.lastName + ' !');
+				}
+			});
 		} else {
 			sAlert.warning('Le formulaire d’inscription est invalide.');
 		}
