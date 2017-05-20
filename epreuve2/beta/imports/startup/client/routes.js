@@ -1,4 +1,5 @@
 import '../../ui/layouts/main-layout';
+import '../../ui/layouts/social-layout';
 import '../../ui/pages/home-page';
 import '../../ui/pages/timeline-page';
 
@@ -15,6 +16,6 @@ FlowRouter.route('/', {
 
 FlowRouter.route('/timeline', {
   action: function() {
-    BlazeLayout.render('mainLayout', {content: 'timelinePage'});
+    BlazeLayout.render('socialLayout', {content: 'timelinePage'});
   }
 });
