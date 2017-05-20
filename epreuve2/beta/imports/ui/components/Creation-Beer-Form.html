@@ -1,0 +1,46 @@
+<template name="CreationBeerForm">
+   <h3>Création</h3>
+	<div class="row">
+		<form id="crea-form" class="col s12">
+			<div class="row">
+				<div class="input-field col s12">
+					<input id="c-name" type="text" class="validate">
+					<label for="c-name">Nom</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12">
+					<input id="c-brasseur" type="text" class="validate">
+					<label for="c-brasseur">Brasseur</label>
+				</div>
+			</div>
+            <div class="row">
+				<div class="input-field col s12">
+					<input id="c-degres" type="number" class="validate">
+					<label for="c-degres">Degrés</label>
+				</div>
+			</div>
+            <div class="row">
+				<div class="input-field col s12">
+					<input id="c-color" type="text" class="validate">
+					<label for="c-color">Couleur</label>
+				</div>
+			</div>
+            <div class="row">
+				<div class="input-field col s12">
+					<input id="c-origins" type="text" class="validate">
+					<label for="c-origins">Origine</label>
+				</div>
+			</div>
+			{{#if loginEnabled}}//Il faut ici refaire le système de grisaille du bouton car c'est le code de la page de login de meme que le js ;
+				<button class="btn waves-effect waves-light btn-large" type="submit">Se connecter
+				<i class="material-icons right">send</i>
+			  </button>
+			{{else}}
+				<button class="btn waves-effect waves-light btn-large disabled" disabled type="submit">Se connecter
+					<i class="material-icons right">send</i>
+				</button>
+			{{/if}}
+		</form>
+	</div>
+</template>
