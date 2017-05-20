@@ -38,7 +38,7 @@ FlowRouter.route('/mybeers', {
 });
 
 FlowRouter.route('/beer/:beerId', {
-  action: function() {
+  action: function(param) {
     BlazeLayout.render('socialLayout', {content: 'beerPage'});
   }
 });

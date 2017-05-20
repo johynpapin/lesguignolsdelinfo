@@ -7,7 +7,6 @@ import '../components/beer';
 
 import './beers-page.html';
 
-
 Template.beersPage.helpers({
 	beers() {
 		return Beers.find({});
