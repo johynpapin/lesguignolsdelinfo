@@ -28,7 +28,8 @@ Beers.schema = new SimpleSchema({
 	aroma: {
 		type: String,
 		label: "Arôme",
-		max: 200
+		max: 200,
+		optional: true
 	},
 	history: {
 		type: String,

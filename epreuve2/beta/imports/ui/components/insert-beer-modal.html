@@ -1,0 +1,49 @@
+<template name="insertBeerModal">
+  <div id="insert-beer-modal" class="modal">
+    <div class="modal-content">
+      <h4>Ajout d’une bière</h4>
+      <p>Afin d’ajouter une bière, veuillez remplir ce formulaire.</p>
+
+			<div class="row">
+		    <form id="insert-beer-form" class="col s12">
+					<div class="row">
+						<div class="input-field col s12">
+		          <input id="b-name" type="text" class="validate">
+		          <label for="b-name">Nom</label>
+		        </div>
+					</div>
+		      <div class="row">
+		        <div class="input-field col s6">
+		          <input id="b-vol" type="number" class="validate" min="0" max="20">
+		          <label for="b-vol">Degré d’alcool</label>
+		        </div>
+						<div class="input-field col s6">
+							<input id="b-color" type="text" class="validate">
+							<label for="b-color">Couleur</label>
+						</div>
+		      </div>
+					<div class="row">
+		        <div class="input-field col s6">
+		          <input id="b-brewer" type="text" class="validate">
+		          <label for="b-brewer">Brasseur</label>
+		        </div>
+						<div class="input-field col s6">
+							<input id="b-aroma" type="text" class="validate">
+							<label for="b-aroma">Arôme</label>
+						</div>
+		      </div>
+					<div class="row">
+						<div class="input-field col s12">
+		          <i class="material-icons prefix">mode_edit</i>
+		          <textarea id="b-history" class="materialize-textarea"></textarea>
+		          <label for="b-history">Son histoire</label>
+		        </div>
+					</div>
+		    </form>
+			</div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" id="insert-beer" class="modal-action modal-close waves-effect waves-green btn-flat">Ajouter</a>
+    </div>
+  </div>
+</template>
