@@ -1,6 +1,6 @@
 import './main-layout.html';
 
-Template.mainLayout.onRendered(function() {
+Template.mainLayout.onRendered(() => {
   const settings = 'particles.json';
   this.autorun(() => {
     if (particlesJS) {
