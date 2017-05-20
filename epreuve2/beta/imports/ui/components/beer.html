@@ -2,10 +2,15 @@
 	<div class="card">
 		<div class="card-image">
 			<img src="beer.jpg">
-			<span class="card-title">{{name}}</span>
+			<span class="card-title">{{name}} – {{vol}}°</span>
 			<a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
 		</div>
 		<div class="card-content">
+			<ul>
+				<li><b>Couleur</b> {{color}}</li>
+				<li><b>Brasseur</b> {{brewer}}</li>
+				<li><b>Arôme</b> {{aroma}}</li>
+			</ul>
 			<p>{{history}}</p>
 		</div>
 	</div>
