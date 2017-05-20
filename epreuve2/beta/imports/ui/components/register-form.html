@@ -18,7 +18,11 @@
 					<label for="email">Email</label>
 				</div>
 			</div>
-			<a class="waves-effect waves-light btn-large"><i class="material-icons left">navigate_next</i>button</a>
+			{{#if nextDisabled}}
+				<a class="waves-effect waves-light btn-large"><i class="material-icons left" disabled>navigate_next</i>Suivant</a>
+			{{else}}
+				<a class="waves-effect waves-light btn-large"><i class="material-icons left">navigate_next</i>Suivant</a>
+			{{/if}}
 		</form>
 	</div>
 </template>
