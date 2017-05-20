@@ -6,12 +6,7 @@
 		</div>
 		<div class="col s12 m8">
 			{{#each comments}}
-				<div class="card">
-					<div class="card-content">
-						<span class="card-title">Commentaire de {{user}} le {{date}}</span>
-						<p>{{content}}</p>
-					</div>
-				</div>
+				{{> comment sayOnWhat=false}}
 			{{/each}}
 		</div>
 	</div>

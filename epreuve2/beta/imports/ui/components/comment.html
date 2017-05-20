@@ -1,0 +1,14 @@
+<template name="comment">
+	<div class="card">
+		<div class="card-content">
+			<span class="card-title">
+				Commentaire de {{user}} le {{date}}
+				{{#if sayOnWhat}}
+					({{on}})
+				{{/if}}
+			</span>
+			<p>{{content}}</p>
+		</div>
+	</div>
+</template>
+
