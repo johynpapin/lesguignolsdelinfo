@@ -4,12 +4,12 @@
 		<form class="col s12">
 			<div class="row">
 				<div class="input-field col s6">
-					<input id="first_name" type="text" class="validate">
-					<label for="first_name">Prénom</label>
+					<input id="first-name" type="text" class="validate">
+					<label for="first-name">Prénom</label>
 				</div>
 				<div class="input-field col s6">
-					<input id="last_name" type="text" class="validate">
-					<label for="last_name">Nom</label>
+					<input id="last-name" type="text" class="validate">
+					<label for="last-name">Nom</label>
 				</div>
 			</div>
 			<div class="row">
@@ -19,7 +19,7 @@
 				</div>
 			</div>
 			{{#if nextDisabled}}
-				<a class="waves-effect waves-light btn-large"><i class="material-icons left" disabled>navigate_next</i>Suivant</a>
+				<a class="waves-effect waves-light btn-large disabled"><i class="material-icons left" disabled>navigate_next</i>Suivant</a>
 			{{else}}
 				<a class="waves-effect waves-light btn-large"><i class="material-icons left">navigate_next</i>Suivant</a>
 			{{/if}}
