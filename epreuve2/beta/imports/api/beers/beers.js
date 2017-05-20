@@ -34,6 +34,11 @@ Beers.schema = new SimpleSchema({
 		type: String,
 		label: "Histoire",
 		max: 3500
+	},
+	picture: {
+		type: Object,
+		label: "Image",
+		optional: true
 	}
 });
 
@@ -45,5 +50,6 @@ Beers.publicFields = {
 	color: 1,
 	brewer: 1,
 	aroma: 1,
-	history: 1
+	history: 1,
+	picture: 1
 };
