@@ -1,7 +1,7 @@
 <template name="beer">
 	<div class="card">
 		<div class="card-image">
-			<img src="beer.jpg">
+			<img src="/beer.jpg">
 			<span class="card-title">{{name}} – {{vol}}°</span>
 			{{#if liked}}
 				<a class="unlike-beer btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">thumb_down</i></a>
@@ -17,8 +17,10 @@
 			</ul>
 			<p>{{history}}</p>
 		</div>
-		<div class="card-action">
-			<a href="/beer/{{_id}}">Voir la bière de plus près</a>
-		</div>
+		{{#unless dontShowAction}}
+			<div class="card-action">
+				<a href="/beer/{{_id}}">Voir la bière de plus près</a>
+			</div>
+		{{/unless}}
 	</div>
 </template>

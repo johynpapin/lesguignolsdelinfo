@@ -5,10 +5,11 @@ import { Beers } from '/imports/api/beers/beers';
 import { Comments } from '/imports/api/comments/comments';
 
 import '../components/beer';
+import '../components/comment';
 import './beer-page.html';
 
 Template.beerPage.helpers({
-	beer() {
+	b() {
 		return Beers.findOne(FlowRouter.getParam('beerId'));
 	},
 	comments() {

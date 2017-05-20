@@ -2,6 +2,10 @@ import { Gravatar } from 'meteor/jparker:gravatar';
 
 import './social-layout.html';
 
+Template.socialLayout.onRendered(() => {
+	$(".button-collapse").sideNav();
+});
+
 Template.socialLayout.helpers({
 	avatarUrl() {
 		if (Meteor.user())
@@ -15,4 +19,12 @@ Template.socialLayout.helpers({
 		if (Meteor.user())
 			return Meteor.user().emails[0].address;
 	}
-})
+});
+
+Template.socialLayout.events({
+	'click #logout'() {
+		Meteor.logout(() => {
+			FlowRouter.go('/');
+		});
+	}
+});

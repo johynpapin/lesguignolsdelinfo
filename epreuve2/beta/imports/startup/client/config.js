@@ -5,4 +5,9 @@ Meteor.startup(() => {
 		effect: 'stackslide',
     onRouteClose: false
 	});
+
+	reCAPTCHA.config({
+		publickey: '6LdUNSIUAAAAAHXzuy7rtk3cZgbeuRyrRroqCHbo',
+		hl: 'fr'
+	});
 });

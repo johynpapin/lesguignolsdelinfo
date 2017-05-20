@@ -70,6 +70,7 @@ Template.registerForm.events({
 					sAlert.error(error);
 				} else {
 					sAlert.success('Bienvenue, ' + Meteor.user().profile.firstName + ' ' + Meteor.user().profile.lastName + ' !');
+					FlowRouter.go('/timeline');
 				}
 			});
 		} else {

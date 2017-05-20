@@ -1,1 +1,2 @@
-import './register-api.js';
+import './config';
+import './register-api';

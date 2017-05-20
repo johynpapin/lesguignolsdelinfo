@@ -34,6 +34,7 @@ Template.loginForm.events({
 					sAlert.error(error);
 				} else {
 					sAlert.success('Bonjour, ' + Meteor.user().profile.firstName + ' ' + Meteor.user().profile.lastName + '.');
+					FlowRouter.go('/timeline');
 				}
 			});
 		} else {

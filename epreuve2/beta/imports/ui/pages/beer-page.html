@@ -1,13 +1,15 @@
 <template name="beerPage">
-	<h1>{{name}} — {{vol}}</h1>
-	<div class="row">
-		<div class="col s12 m4">
-			<!--{{> beer}}-->
+	{{#with b}}
+		<h1>{{name}} — {{vol}}</h1>
+		<div class="row">
+			<div class="col s12 m4">
+				{{> beer dontShowAction=true}}
+			</div>
+			<div class="col s12 m8">
+				{{#each comments}}
+					{{> comment sayOnWhat=false}}
+				{{/each}}
+			</div>
 		</div>
-		<div class="col s12 m8">
-			{{#each comments}}
-				{{> comment sayOnWhat=false}}
-			{{/each}}
-		</div>
-	</div>
+	{{/with}}
 </template>
