@@ -1,5 +1,6 @@
 import { Mongo } from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
+import { Beers } from '../beers/beers';
 
 export const Comments = new Mongo.Collection('commments');
 
