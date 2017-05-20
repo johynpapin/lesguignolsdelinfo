@@ -61,7 +61,9 @@ Template.registerForm.events({
 				password: password.val(),
 				profile: {
 					firstName: firstName.val(),
-					lastName: lastName.val()
+					lastName: lastName.val(),
+					friends: [],
+					beers: []
 				}
 			}, error => {
 				if (error) {
