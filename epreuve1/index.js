@@ -11,6 +11,7 @@ let b = {};
 let number;
 let players = [];
 let toBeer = false;
+let notUsed = false;
 try{
 client.on('data', data => {
 	console.time('data');
@@ -47,17 +48,21 @@ client.on('data', data => {
 		});
 		console.timeEnd('generation');
 		console.time('astar');
-		console.log(players[number].x, players[number].y, b[{x: players[number].x, y: players[number].y}]);
+		console.log(players[number].x, players[number].y, b[JSON.stringify({x: players[number].x, y: players[number].y})]);
+
 		//paths from us to every beer
 		let beersPaths = {};
 		for (const beer of beers) {
 			beersPaths[JSON.stringify(beer)] = {fromPlayer: astar.search(new Graph(b, {x: x, y: y}), players[number], {x: beer.x, y: beer.y}), toMussels: {}};
 		}
+
+		//paths from every beer to every mussel
 		for (const beer of beers) {
 			for (const mussel of mussels) {
 				beersPaths[JSON.stringify(beer)].toMussels[JSON.stringify(mussel)] = astar.search(new Graph(b, {x: x, y: y}), beer, {x: mussel.x, y: mussel.y});
 			}
 		}
+
 		//paths for every player to every mussel
 		for (const player of players) {
 			player.paths = {};
@@ -68,13 +73,15 @@ client.on('data', data => {
 					//that’s us
 					for (let beerPath in beersPaths) {
 						beerPath = beersPaths[beerPath];
-						if (beerPath.fromPlayer.length - 3 + beerPath.toMussels[JSON.stringify(mussel)].length < player.paths[JSON.stringify(mussel)]) {
+						if (beerPath.fromPlayer.length - 2 + beerPath.toMussels[JSON.stringify(mussel)].length < player.paths[JSON.stringify(mussel)]) {
 							player.paths[JSON.stringify(mussel)] = beerPath.fromPlayer;
 						}
 					}
 				}
 			}
 		}
+
+		//best player for every mussel
 		let musselsBestPlayer = {};
 		for (const mussel of mussels) {
 			musselsBestPlayer[JSON.stringify(mussel)] = players[number];
@@ -84,130 +91,53 @@ client.on('data', data => {
 				}
 			}
 		}
+
+		//mussels for which we are the best player
 		let ourMussels = [];
 		for (const mussel in musselsBestPlayer) {
 			if (musselsBestPlayer[mussel] === players[number]) {
 				ourMussels.push(mussel);
 			}
 		}
+
+		//which path do we take?
+		let path = [];
 		if (ourMussels.length !== 0) {
-			let dirCur = dir(players[number], players[number].paths[ourMussels[0]][0]);
-			let notUsed = false;
-			switch (dirCur) {
-			case 'N':
-				toBeer = b[{x: players[number].x, y: players[number].y - 1}] === 'B';
-				notUsed = toBeer;
-				break;
-			//42
-			case 'S':
-				toBeer = b[{x: players[number].x, y: players[number].y + 1}] === 'B';
-				notUsed = toBeer;
-				break;
-			case 'O':
-				toBeer = b[{x: players[number].x - 1, y: players[number].y}] === 'B';
-				notUsed = toBeer;
-				break;
-			case 'E':
-				toBeer = b[{x: players[number].x + 1, y: players[number].y}] === 'B';
-				notUsed = toBeer;
-				break;
-			}
-			if (toBeer && !notUsed && players[number].paths[ourMussels[0]].length >= 3) {
-				dirCur = 'B-';
-				dirCur += dir(players[number], players[number].paths[ourMussels[0]][0]) + '-';
-				dirCur += dir(players[number].paths[ourMussels[0]][0], players[number].paths[ourMussels[0]][1]) + '-';
-				dirCur += dir(players[number].paths[ourMussels[0]][1], players[number].paths[ourMussels[0]][2]);
-				console.log(dirCur);
-				toBeer = false;
-				client.write(dirCur + '\n');
-			} else {
-				client.write(dirCur + '\n');
-			}
+			path = players[number].paths[ourMussels[0]];
 		} else {
 			let nb = 0;
 			if (mussels.length >= 2 && Math.abs(mussels[0].val - mussels[1].val) <= 20) {
 				nb = 1;
 			}
-			let dirCur = dir(players[number], players[number].paths[JSON.stringify(mussels[nb])][0]);
-			let notUsed = false;
-			switch (dirCur) {
-			case 'N':
-				toBeer = b[{x: players[number].x, y: players[number].y - 1}] === 'B';
-				notUsed = toBeer;
-				break;
-			//42
-			case 'S':
-				toBeer = b[{x: players[number].x, y: players[number].y + 1}] === 'B';
-				notUsed = toBeer;
-				break;
-			case 'O':
-				toBeer = b[{x: players[number].x - 1, y: players[number].y}] === 'B';
-				notUsed = toBeer;
-				break;
-			case 'E':
-				toBeer = b[{x: players[number].x + 1, y: players[number].y}] === 'B';
-				notUsed = toBeer;
-				break;
-			}
-			if (toBeer && !notUsed && players[number].paths[JSON.stringify(mussels[nb])].length >= 3) {
-				dirCur = 'B-';
-				dirCur += dir(players[number], players[number].paths[JSON.stringify(mussels[nb])][0]) + '-';
-				dirCur += dir(players[number].paths[JSON.stringify(mussels[nb])][0], players[number].paths[JSON.stringify(mussels[nb])][1]) + '-';
-				dirCur += dir(players[number].paths[JSON.stringify(mussels[nb])][1], players[number].paths[JSON.stringify(mussels[nb])][2]);
-				console.log(dirCur);
-				toBeer = false;
-				client.write(dirCur + '\n');
-			} else {
-				client.write(dirCur + '\n');
-			}
+			path = players[number].paths[JSON.stringify(mussels[nb])];
+		}
+
+		//next step
+		let dirCur = dir(players[number], path[0]);
+		//after this we get a beer!
+		toBeer = b[JSON.stringify(path[0])] === 'B';
+		//we have an unused beer if we already have it or if we’ll have it at the next step
+		notUsed = notUsed || toBeer;
+		//we use a beer if it is not used (notUsed) and we already have it (!toBeer) and it’s possible because our path is long enough
+		if (!toBeer && notUsed && path.length >= 3) {
+			dirCur = 'B-';
+			dirCur += dir(players[number], path[0]) + '-';
+			dirCur += dir(path[0], path[1]) + '-';
+			dirCur += dir(path[1], path[2]);
+			notUsed = false;
+			client.write(dirCur + '\n');
+		} else {
+			client.write(dirCur + '\n');
 		}
 		console.timeEnd('astar');
 	}
 	console.timeEnd('data');
 });
-}catch(e) {}
+} catch(e) {}
 
 client.on('end', () => {
 	console.log('disconnected from server');
 });
-
-let player = {
-	x: 0,
-	y: 0,
-	nbF: 0,
-	nbB: 0,
-	sideOf: function (xPos, yPos) {
-		if ((this.x === xPos) && (this.y - 1 === yPos)) {
-			return 'N';
-		} else if ((this.x === xPos) && (this.y + 1 === yPos)) {
-			return 'S';
-		} else if ((this.y === yPos) && (this.x - 1 === xPos)) {
-			return 'O';
-		} else if ((this.y === yPos) && (this.x + 1 === xPos)) {
-			return 'E';
-		} else if ((this.x === xPos) && (this.y === yPos)) {
-			return 'C';
-		} else {
-			return 'I';
-		}
-	},
-	canWalkOn: function (xPos, yPos, b) {
-		if (['S', 'B', 'F'].indexOf(b[xPos][yPos]) !== -1) {
-			//sand, beer or fries
-			return true;
-		} else if (Number(b[xPos][yPos]) == b[xPos][yPos]) {
-			//number (mussel)
-			return true;
-		} else if ((b[xPos][yPos] === 'D') && (nbF > 0)) {
-			//next is a dune and we got fries. can we walk on what’s on the other side?
-			let otherSide = b[xPos + (xPos - this.x)][yPos + (yPos - this.y)];
-			if ((['S', 'B', 'F'].indexOf(otherSide) !== -1) || (Number(otherSide) == otherSide)) {
-				return true;
-			}
-		}
-		return false;
-	}
-};
 
 function dir(from, to) {
 	if (from.x < to.x)
